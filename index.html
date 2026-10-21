@@ -227,14 +227,11 @@ section{padding:76px 22px;text-align:center}.intro{background:#e9e8dc}.section-i
 <footer class="footer"><div class="names serif">Juan <span style="color:#c5ac7a">&</span> Ángel</div><p>17 · ABRIL · 2027</p><div style="font-size:.7rem;color:#c8c7b8;margin-top:18px">Con amor, para celebrar nuestro nuevo comienzo.</div></footer>
 </main>
 <script>
-// LISTA DE INVITADOS: actualizar cuando tengan la lista definitiva. Los IDs deben coincidir con la pestaña Invitados de Google Sheets.
-const INVITADOS = [
-  { id: 'ejemplo-familia', nombre: 'Familia de ejemplo (REEMPLAZAR)', cupos: 4 },
-  { id: 'ejemplo-pareja', nombre: 'Invitación de ejemplo para pareja (REEMPLAZAR)', cupos: 2 },
-  { id: 'ejemplo-individual', nombre: 'Invitado de ejemplo (REEMPLAZAR)', cupos: 1 }
-];
-// Pega aquí la URL de implementación de Google Apps Script (termina en /exec) después de desplegarlo.
+// La lista de invitados se carga desde la pestaña "Invitados" de Google Sheets mediante Apps Script.
+let INVITADOS = [];
 const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyAG-Z0CrUwYl1auC-cluWvqG8HWeLkrEN6zanfJ_maSdTB1O2UZVtH1QkkFcRanty6/exec';
+let invitadosCargados = false;
+let invitadosCargando = false;
 const cover=document.getElementById('cover'), main=document.getElementById('invitation');
 const inviteSelect=document.getElementById('inviteSelect');
 const guestName=document.getElementById('guestName');
@@ -246,10 +243,56 @@ const guestHelp=document.getElementById('guestHelp');
 const useAllSeats=document.getElementById('useAllSeats');
 const usedSeats=document.getElementById('usedSeats');
 const usedSeatsField=document.getElementById('usedSeatsField');
-INVITADOS.forEach(inv=>{const option=document.createElement('option');option.value=inv.id;option.textContent=inv.nombre;inviteSelect.appendChild(option)});
+
+// JSONP permite leer el listado desde GitHub Pages sin depender de CORS.
+function cargarInvitados() {
+  if (invitadosCargados || invitadosCargando) return;
+  invitadosCargando = true;
+  guestHelp.textContent = 'Cargando la lista de invitados…';
+  const callbackName = 'recibirInvitadosBoda';
+  const script = document.createElement('script');
+  const timeout = setTimeout(() => {
+    finalizarCarga();
+    guestHelp.textContent = 'No fue posible cargar la lista. Recarga la página o inténtalo más tarde.';
+  }, 15000);
+  function finalizarCarga() {
+    clearTimeout(timeout);
+    invitadosCargando = false;
+    if (script.parentNode) script.parentNode.removeChild(script);
+    try { delete window[callbackName]; } catch (_) { window[callbackName] = undefined; }
+  }
+  window[callbackName] = function(data) {
+    finalizarCarga();
+    if (!data || data.ok !== true || !Array.isArray(data.invitados)) {
+      guestHelp.textContent = (data && data.message) ? data.message : 'No se pudo consultar la lista de invitados.';
+      return;
+    }
+    INVITADOS = data.invitados.filter(inv => inv && typeof inv.id === 'string' && inv.nombre && Number.isInteger(Number(inv.cupos)) && Number(inv.cupos) >= 0)
+      .map(inv => ({ id: inv.id, nombre: inv.nombre, cupos: Number(inv.cupos) }));
+    inviteSelect.querySelectorAll('option:not(:first-child)').forEach(option => option.remove());
+    INVITADOS.forEach(inv => {
+      const option = document.createElement('option');
+      option.value = inv.id;
+      option.textContent = inv.nombre;
+      inviteSelect.appendChild(option);
+    });
+    invitadosCargados = true;
+    guestHelp.textContent = INVITADOS.length
+      ? 'Selecciona tu nombre o familia para consultar los cupos asignados.'
+      : 'La lista todavía no tiene invitados activos. Los novios deben completar la pestaña Invitados.';
+  };
+  script.onerror = function() {
+    finalizarCarga();
+    guestHelp.textContent = 'No se pudo conectar con la lista de invitados. Recarga la página o inténtalo más tarde.';
+  };
+  script.src = GOOGLE_SCRIPT_URL + '?accion=invitados&callback=' + callbackName + '&t=' + Date.now();
+  document.head.appendChild(script);
+}
+
+cargarInvitados();
 function updateSeatOptions(inv){usedSeats.innerHTML='<option value="" selected disabled>Selecciona la cantidad de cupos</option>';for(let n=0;n<=inv.cupos;n++){const op=document.createElement('option');op.value=String(n);op.textContent=n+(n===1?' cupo':' cupos');usedSeats.appendChild(op)}}
 inviteSelect.addEventListener('change',()=>{
-  const inv=INVITADOS.find(item=>item.id===inviteSelect.value); if(!inv)return;
+  const inv=INVITADOS.find(item=>item.id===inviteSelect.value); if(!inv){if(!invitadosCargados)cargarInvitados();return;}
   guestName.value=inv.nombre; guests.value=inv.cupos+(inv.cupos===1?' cupo':' cupos');
   guestCapacity.textContent=`Esta invitación tiene ${inv.cupos} ${inv.cupos===1?'cupo asignado':'cupos asignados'}.`;
   inviteBadge.hidden=false; rsvpForm.classList.remove('rsvp-locked'); updateSeatOptions(inv);
@@ -272,7 +315,7 @@ rsvpForm.addEventListener('submit',async e=>{
  if(attendance==='Sí, allí estaré'&&all==='No'&&(!Number.isInteger(n)||n<0||n>=inv.cupos)){usedSeats.focus();return;}
  const payload={inviteId:inv.id,guestName:inv.nombre,attendance,assignedSeats:inv.cupos,useAllSeats:all,usedSeats:n,dietary:document.getElementById('dietary').value.trim(),message:document.getElementById('message').value.trim(),submittedAt:new Date().toISOString()};
  const thanks=document.getElementById('thanks'), button=rsvpForm.querySelector('button[type="submit"]'), note=document.getElementById('formNote');
- if(!GOOGLE_SCRIPT_URL.startsWith('https://script.google.com/')){note.textContent='La conexión todavía no está configurada. Sigue el archivo LEEME_CONFIGURACION para conectar Google Sheets antes de publicar.';note.style.color='#8a5d2b';return;}
+ if(!GOOGLE_SCRIPT_URL.startsWith('https://script.google.com/')){note.textContent='La conexión no está configurada correctamente. Inténtalo más tarde o comunícate con los novios.';note.style.color='#8a5d2b';return;}
  button.disabled=true;button.textContent='Enviando…';
  try {
    // Apps Script no devuelve una respuesta legible desde otro dominio en modo no-cors; el servidor valida y guarda la información.
