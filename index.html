@@ -207,6 +207,12 @@ section{padding:76px 22px;text-align:center}.intro{background:#e9e8dc}.section-i
 .countdown-grid i{height:34px;width:1px;background:#f4e4c3a6;display:block}
 @media(max-width:480px){.wedding-countdown{margin-top:20px}.countdown-grid{gap:9px}.countdown-unit{min-width:39px}.countdown-unit span{font-size:1.8rem}.countdown-unit small{font-size:.48rem;letter-spacing:.08em}}
 </style>
+<style id="wedding-music-styles">
+#weddingMusic{position:fixed;right:18px;bottom:18px;z-index:9999;width:50px;height:50px;border:1px solid #d8c69d;border-radius:50%;background:#687a5a;color:#fffaf0;box-shadow:0 5px 18px #25332430;display:none;align-items:center;justify-content:center;cursor:pointer;font-size:1.15rem;transition:transform .2s,background .2s}
+#weddingMusic.visible{display:flex}#weddingMusic:hover{transform:translateY(-2px);background:#344338}#weddingMusic:focus-visible{outline:2px solid #b99b65;outline-offset:3px}
+#weddingMusic.playing{animation:musicPulse 2s ease-in-out infinite}@keyframes musicPulse{0%,100%{box-shadow:0 5px 18px #25332430}50%{box-shadow:0 5px 22px #b99b6570}}
+@media(prefers-reduced-motion:reduce){#weddingMusic.playing{animation:none}}
+</style>
 <script id="wedding-countdown-script">
 (function(){
  function initCountdown(){
@@ -274,7 +280,9 @@ section{padding:76px 22px;text-align:center}.intro{background:#e9e8dc}.section-i
 </div>
 <div class="reveal-title" id="revealTitle"><div class="reveal-eyebrow">NOS CASAMOS</div><div class="reveal-names">Juan <i>&amp;</i><br>Ángel</div><div class="reveal-date">17 · ABRIL · 2027</div><div class="reveal-place">La Casona · Guarne, Antioquia</div><button class="reveal-continue" id="revealContinue">Descubrir la invitación ↓</button></div>
 <div class="scroll-cue">Toca para descubrir ↓</div></header>
-<main id="invitation">
+<audio id="weddingAudio" preload="none" loop></audio>
+ <button id="weddingMusic" type="button" aria-label="Reproducir música" title="Reproducir música" aria-pressed="false" hidden>♫</button>
+ <main id="invitation">
 <section class="intro"><div class="section-inner"><div class="eyebrow">¡Nos casamos!</div><h2 class="serif">El comienzo de<br>nuestro para siempre</h2><div class="rule"></div><p>Hay momentos que se vuelven inolvidables cuando se comparten con las personas que más queremos. Nos encantaría que nos acompañaras a celebrar el inicio de esta nueva etapa de nuestras vidas.</p><div class="serif" style="font-size:1.45rem;font-style:italic">Con cariño, Juan y Ángel</div></div></section>
 <section class="story-section" id="nuestra-historia" aria-labelledby="story-title"><div class="story-inner"><div class="eyebrow">Un camino juntos</div><h2 class="story-heading" id="story-title">Nuestra historia</h2><p class="story-intro">Hay encuentros que cambian el rumbo de la vida y pequeños momentos que se convierten en recuerdos para siempre. Esta es la historia de dos personas que eligieron caminar juntas y que ahora quieren celebrar su amor con quienes más quieren.</p><div class="story-timeline"><article class="story-item" data-story-order="1"><div class="story-mark" aria-hidden="true">♡</div><img class="story-photo" alt="Cuando todo comenzó" loading="lazy" hidden><div class="story-copy"><h3>Cuando todo comenzó</h3><p>Dos caminos se encontraron y, poco a poco, nació una historia hecha de conversaciones, sonrisas y momentos que empezaron a tener un significado especial.</p></div></article><article class="story-item" data-story-order="2"><div class="story-mark" aria-hidden="true">✧</div><img class="story-photo" alt="Elegirnos cada día" loading="lazy" hidden><div class="story-copy"><h3>Elegirnos cada día</h3><p>Con cada experiencia compartida, el cariño se hizo más fuerte y creció la ilusión de construir un futuro en equipo.</p></div></article><article class="story-item" data-story-order="3"><div class="story-mark" aria-hidden="true">∞</div><img class="story-photo" alt="Un para siempre" loading="lazy" hidden><div class="story-copy"><h3>Un para siempre</h3><p>Hoy damos un nuevo paso y queremos celebrar este capítulo rodeados de las personas que forman parte de nuestras vidas.</p></div></article></div><div class="story-note">Juan &amp; Ángel · 17 de abril de 2027</div></div></section>
 <section class="photo" aria-label="Fotografía romántica de boda"><div class="photo-caption"><div class="eyebrow">Un día para recordar</div><h2 class="serif">Nuestra boda</h2><div>17 de abril de 2027</div>
@@ -398,6 +406,68 @@ function cargarFotosHistoria() {
   document.head.appendChild(script);
 }
 
+// Música configurada desde la pestaña MUSICA de Google Sheets mediante Apps Script.
+const weddingAudio = document.getElementById('weddingAudio');
+const weddingMusicButton = document.getElementById('weddingMusic');
+let musicReady = false;
+let musicStarted = false;
+function actualizarBotonMusica(sonando) {
+  weddingMusicButton.classList.toggle('playing', sonando);
+  weddingMusicButton.textContent = sonando ? '♫' : '♪';
+  weddingMusicButton.setAttribute('aria-label', sonando ? 'Pausar música' : 'Reproducir música');
+  weddingMusicButton.title = sonando ? 'Pausar música' : 'Reproducir música';
+  weddingMusicButton.setAttribute('aria-pressed', sonando ? 'true' : 'false');
+}
+function cargarMusicaBoda() {
+  const callbackName = 'recibirMusicaBoda';
+  const script = document.createElement('script');
+  let finished = false;
+  const timeout = setTimeout(limpiar, 15000);
+  function limpiar() {
+    if (finished) return;
+    finished = true;
+    clearTimeout(timeout);
+    if (script.parentNode) script.parentNode.removeChild(script);
+    try { delete window[callbackName]; } catch (_) { window[callbackName] = undefined; }
+  }
+  window[callbackName] = function(data) {
+    limpiar();
+    if (!data || data.ok !== true || !data.musica || !data.musica.audioUrl) return;
+    weddingAudio.src = data.musica.audioUrl;
+    weddingAudio.load();
+    musicReady = true;
+    // El botón solo aparece después de abrir la invitación.
+  };
+  script.onerror = limpiar;
+  script.src = GOOGLE_SCRIPT_URL + '?accion=musica&callback=' + callbackName + '&t=' + Date.now();
+  document.head.appendChild(script);
+}
+async function iniciarMusicaBoda() {
+  if (!musicReady) return;
+  try {
+    await weddingAudio.play();
+    musicStarted = true;
+    weddingMusicButton.classList.add('visible');
+    weddingMusicButton.hidden = false;
+    actualizarBotonMusica(true);
+  } catch (err) {
+    // Si Drive no permite reproducir el archivo directamente, el botón permite reintentar.
+    weddingMusicButton.classList.add('visible');
+    weddingMusicButton.hidden = false;
+    actualizarBotonMusica(false);
+  }
+}
+weddingAudio.addEventListener('play', () => actualizarBotonMusica(true));
+weddingAudio.addEventListener('pause', () => actualizarBotonMusica(false));
+weddingMusicButton.addEventListener('click', async () => {
+  if (weddingAudio.paused) {
+    try { await weddingAudio.play(); } catch (_) { actualizarBotonMusica(false); }
+  } else {
+    weddingAudio.pause();
+  }
+});
+cargarMusicaBoda();
+
 cargarFotosHistoria();
 
 cargarInvitados();
@@ -419,7 +489,7 @@ useAllSeats.addEventListener('change',()=>{
   actualizarCamposAsistencia();
 });
 actualizarCamposAsistencia();
-function abrirInvitacion(){if(cover.classList.contains('opened'))return;cover.classList.add('opened');main.classList.add('visible');setTimeout(()=>{document.getElementById('inviteCard').setAttribute('aria-hidden','true')},1100);}
+function abrirInvitacion(){if(cover.classList.contains('opened'))return;cover.classList.add('opened');main.classList.add('visible');iniciarMusicaBoda();setTimeout(()=>{document.getElementById('inviteCard').setAttribute('aria-hidden','true')},1100);}
 document.getElementById('openInvite').addEventListener('click',abrirInvitacion);
 document.getElementById('inviteCard').addEventListener('click',abrirInvitacion);
 document.getElementById('openInvite').setAttribute('aria-label','Abrir invitación tocando el sobre');
