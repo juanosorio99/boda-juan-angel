@@ -208,8 +208,8 @@ section{padding:76px 22px;text-align:center}.intro{background:#e9e8dc}.section-i
 @media(max-width:480px){.wedding-countdown{margin-top:20px}.countdown-grid{gap:9px}.countdown-unit{min-width:39px}.countdown-unit span{font-size:1.8rem}.countdown-unit small{font-size:.48rem;letter-spacing:.08em}}
 </style>
 <style id="wedding-music-styles">
-#weddingMusic{position:fixed;right:18px;bottom:18px;z-index:9999;width:50px;height:50px;border:1px solid #d8c69d;border-radius:50%;background:#687a5a;color:#fffaf0;box-shadow:0 5px 18px #25332430;display:none;align-items:center;justify-content:center;cursor:pointer;font-size:1.15rem;transition:transform .2s,background .2s}
-#weddingMusic.visible{display:flex}#weddingMusic:hover{transform:translateY(-2px);background:#344338}#weddingMusic:focus-visible{outline:2px solid #b99b65;outline-offset:3px}
+#weddingMusic{position:fixed;right:18px;bottom:18px;z-index:9999;width:46px;height:46px;border:1px solid #687a5a66;border-radius:50%;background:transparent!important;color:#687a5a;box-shadow:none!important;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);display:none;align-items:center;justify-content:center;cursor:pointer;font-size:1.2rem;transition:transform .2s,color .2s;opacity:.72}
+#weddingMusic.visible{display:flex}#weddingMusic:hover{transform:translateY(-2px);background:transparent!important;opacity:1;color:#344338}#weddingMusic:focus-visible{outline:1px solid #b99b65;outline-offset:3px}
 #weddingMusic.playing{animation:musicPulse 2s ease-in-out infinite}@keyframes musicPulse{0%,100%{box-shadow:0 5px 18px #25332430}50%{box-shadow:0 5px 22px #b99b6570}}
 @media(prefers-reduced-motion:reduce){#weddingMusic.playing{animation:none}}
 </style>
@@ -280,7 +280,7 @@ section{padding:76px 22px;text-align:center}.intro{background:#e9e8dc}.section-i
 </div>
 <div class="reveal-title" id="revealTitle"><div class="reveal-eyebrow">NOS CASAMOS</div><div class="reveal-names">Juan <i>&amp;</i><br>Ángel</div><div class="reveal-date">17 · ABRIL · 2027</div><div class="reveal-place">La Casona · Guarne, Antioquia</div><button class="reveal-continue" id="revealContinue">Descubrir la invitación ↓</button></div>
 <div class="scroll-cue">Toca para descubrir ↓</div></header>
-<audio id="weddingAudio" preload="none" loop></audio>
+<audio id="weddingAudio" preload="auto" loop playsinline></audio>
  <button id="weddingMusic" type="button" aria-label="Reproducir música" title="Reproducir música" aria-pressed="false" hidden>♫</button>
  <main id="invitation">
 <section class="intro"><div class="section-inner"><div class="eyebrow">¡Nos casamos!</div><h2 class="serif">El comienzo de<br>nuestro para siempre</h2><div class="rule"></div><p>Hay momentos que se vuelven inolvidables cuando se comparten con las personas que más queremos. Nos encantaría que nos acompañaras a celebrar el inicio de esta nueva etapa de nuestras vidas.</p><div class="serif" style="font-size:1.45rem;font-style:italic">Con cariño, Juan y Ángel</div></div></section>
@@ -410,13 +410,30 @@ function cargarFotosHistoria() {
 const weddingAudio = document.getElementById('weddingAudio');
 const weddingMusicButton = document.getElementById('weddingMusic');
 let musicReady = false;
-let musicStarted = false;
+let invitationOpened = false;
+let musicLoadFailed = false;
 function actualizarBotonMusica(sonando) {
   weddingMusicButton.classList.toggle('playing', sonando);
   weddingMusicButton.textContent = sonando ? '♫' : '♪';
   weddingMusicButton.setAttribute('aria-label', sonando ? 'Pausar música' : 'Reproducir música');
-  weddingMusicButton.title = sonando ? 'Pausar música' : 'Reproducir música';
+  weddingMusicButton.title = sonando ? 'Pausar música' : (musicLoadFailed ? 'No se pudo cargar la música. Toca para reintentar.' : 'Reproducir música');
   weddingMusicButton.setAttribute('aria-pressed', sonando ? 'true' : 'false');
+}
+function mostrarBotonMusica() {
+  weddingMusicButton.hidden = false;
+  weddingMusicButton.classList.add('visible');
+}
+async function intentarReproducirMusica() {
+  if (!musicReady) { mostrarBotonMusica(); return; }
+  try {
+    await weddingAudio.play();
+    musicLoadFailed = false;
+    actualizarBotonMusica(true);
+  } catch (err) {
+    musicLoadFailed = true;
+    actualizarBotonMusica(false);
+    mostrarBotonMusica();
+  }
 }
 function cargarMusicaBoda() {
   const callbackName = 'recibirMusicaBoda';
@@ -432,36 +449,30 @@ function cargarMusicaBoda() {
   }
   window[callbackName] = function(data) {
     limpiar();
-    if (!data || data.ok !== true || !data.musica || !data.musica.audioUrl) return;
+    if (!data || data.ok !== true || !data.musica || !data.musica.audioUrl) {
+      musicLoadFailed = true;
+      return;
+    }
     weddingAudio.src = data.musica.audioUrl;
+    weddingAudio.preload = 'auto';
     weddingAudio.load();
     musicReady = true;
-    // El botón solo aparece después de abrir la invitación.
+    weddingAudio.addEventListener('canplay', function() {
+      if (invitationOpened && weddingAudio.paused) intentarReproducirMusica();
+    }, { once: true });
+    if (invitationOpened) intentarReproducirMusica();
   };
-  script.onerror = limpiar;
+  script.onerror = function() { musicLoadFailed = true; limpiar(); };
   script.src = GOOGLE_SCRIPT_URL + '?accion=musica&callback=' + callbackName + '&t=' + Date.now();
   document.head.appendChild(script);
 }
-async function iniciarMusicaBoda() {
-  if (!musicReady) return;
-  try {
-    await weddingAudio.play();
-    musicStarted = true;
-    weddingMusicButton.classList.add('visible');
-    weddingMusicButton.hidden = false;
-    actualizarBotonMusica(true);
-  } catch (err) {
-    // Si Drive no permite reproducir el archivo directamente, el botón permite reintentar.
-    weddingMusicButton.classList.add('visible');
-    weddingMusicButton.hidden = false;
-    actualizarBotonMusica(false);
-  }
-}
 weddingAudio.addEventListener('play', () => actualizarBotonMusica(true));
 weddingAudio.addEventListener('pause', () => actualizarBotonMusica(false));
+weddingAudio.addEventListener('error', () => { musicLoadFailed = true; actualizarBotonMusica(false); });
 weddingMusicButton.addEventListener('click', async () => {
   if (weddingAudio.paused) {
-    try { await weddingAudio.play(); } catch (_) { actualizarBotonMusica(false); }
+    if (!musicReady) { cargarMusicaBoda(); mostrarBotonMusica(); return; }
+    await intentarReproducirMusica();
   } else {
     weddingAudio.pause();
   }
@@ -489,7 +500,7 @@ useAllSeats.addEventListener('change',()=>{
   actualizarCamposAsistencia();
 });
 actualizarCamposAsistencia();
-function abrirInvitacion(){if(cover.classList.contains('opened'))return;cover.classList.add('opened');main.classList.add('visible');iniciarMusicaBoda();setTimeout(()=>{document.getElementById('inviteCard').setAttribute('aria-hidden','true')},1100);}
+function abrirInvitacion(){if(cover.classList.contains('opened'))return;invitationOpened=true;cover.classList.add('opened');main.classList.add('visible');mostrarBotonMusica();intentarReproducirMusica();setTimeout(()=>{document.getElementById('inviteCard').setAttribute('aria-hidden','true')},1100);}
 document.getElementById('openInvite').addEventListener('click',abrirInvitacion);
 document.getElementById('inviteCard').addEventListener('click',abrirInvitacion);
 document.getElementById('openInvite').setAttribute('aria-label','Abrir invitación tocando el sobre');
