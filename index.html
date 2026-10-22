@@ -209,33 +209,42 @@ section{padding:76px 22px;text-align:center}.intro{background:#e9e8dc}.section-i
 </style>
 <script id="wedding-countdown-script">
 (function(){
- const target = new Date('2027-04-17T15:00:00-05:00');
- const ids = {
-   days: document.getElementById('countdown-days'),
-   hours: document.getElementById('countdown-hours'),
-   minutes: document.getElementById('countdown-minutes'),
-   seconds: document.getElementById('countdown-seconds')
- };
- const pad = n => String(n).padStart(2, '0');
- function updateCountdown(){
-   const now = new Date();
-   let diff = target.getTime() - now.getTime();
-   if (diff <= 0) {
-     ids.days.textContent = ids.hours.textContent = ids.minutes.textContent = ids.seconds.textContent = '00';
-     document.querySelector('.countdown-label').textContent = '¡Hoy celebramos nuestro amor!';
-     return;
+ function initCountdown(){
+   const target = new Date('2027-04-17T15:00:00-05:00');
+   const ids = {
+     days: document.getElementById('countdown-days'),
+     hours: document.getElementById('countdown-hours'),
+     minutes: document.getElementById('countdown-minutes'),
+     seconds: document.getElementById('countdown-seconds')
+   };
+   const label = document.querySelector('.countdown-label');
+   if (!ids.days || !ids.hours || !ids.minutes || !ids.seconds || !label) return;
+   const pad = n => String(n).padStart(2, '0');
+   function updateCountdown(){
+     const now = new Date();
+     let diff = target.getTime() - now.getTime();
+     if (diff <= 0) {
+       ids.days.textContent = ids.hours.textContent = ids.minutes.textContent = ids.seconds.textContent = '00';
+       label.textContent = '¡Hoy celebramos nuestro amor!';
+       return;
+     }
+     const days = Math.floor(diff / 86400000); diff %= 86400000;
+     const hours = Math.floor(diff / 3600000); diff %= 3600000;
+     const minutes = Math.floor(diff / 60000); diff %= 60000;
+     const seconds = Math.floor(diff / 1000);
+     ids.days.textContent = pad(days);
+     ids.hours.textContent = pad(hours);
+     ids.minutes.textContent = pad(minutes);
+     ids.seconds.textContent = pad(seconds);
    }
-   const days = Math.floor(diff / 86400000); diff %= 86400000;
-   const hours = Math.floor(diff / 3600000); diff %= 3600000;
-   const minutes = Math.floor(diff / 60000); diff %= 60000;
-   const seconds = Math.floor(diff / 1000);
-   ids.days.textContent = pad(days);
-   ids.hours.textContent = pad(hours);
-   ids.minutes.textContent = pad(minutes);
-   ids.seconds.textContent = pad(seconds);
+   updateCountdown();
+   window.setInterval(updateCountdown, 1000);
  }
- updateCountdown();
- setInterval(updateCountdown, 1000);
+ if (document.readyState === 'loading') {
+   document.addEventListener('DOMContentLoaded', initCountdown, { once: true });
+ } else {
+   initCountdown();
+ }
 })();
 </script>
 </head>
