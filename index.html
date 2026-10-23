@@ -412,6 +412,7 @@ const weddingMusicButton = document.getElementById('weddingMusic');
 let musicReady = false;
 let invitationOpened = false;
 let musicLoadFailed = false;
+
 function actualizarBotonMusica(sonando) {
   weddingMusicButton.classList.toggle('playing', sonando);
   weddingMusicButton.textContent = sonando ? '♫' : '♪';
@@ -419,64 +420,55 @@ function actualizarBotonMusica(sonando) {
   weddingMusicButton.title = sonando ? 'Pausar música' : (musicLoadFailed ? 'No se pudo cargar la música. Toca para reintentar.' : 'Reproducir música');
   weddingMusicButton.setAttribute('aria-pressed', sonando ? 'true' : 'false');
 }
+
 function mostrarBotonMusica() {
   weddingMusicButton.hidden = false;
   weddingMusicButton.classList.add('visible');
 }
-async function intentarReproducirMusica() {
-  if (!musicReady) { mostrarBotonMusica(); return; }
-  try {
-    await weddingAudio.play();
-    musicLoadFailed = false;
-    actualizarBotonMusica(true);
-  } catch (err) {
-    musicLoadFailed = true;
-    actualizarBotonMusica(false);
-    mostrarBotonMusica();
-  }
-}
+
 function cargarMusicaBoda() {
-  const callbackName = 'recibirMusicaBoda';
-  const script = document.createElement('script');
-  let finished = false;
-  const timeout = setTimeout(limpiar, 15000);
-  function limpiar() {
-    if (finished) return;
-    finished = true;
-    clearTimeout(timeout);
-    if (script.parentNode) script.parentNode.removeChild(script);
-    try { delete window[callbackName]; } catch (_) { window[callbackName] = undefined; }
-  }
-  window[callbackName] = function(data) {
-    limpiar();
-    if (!data || data.ok !== true || !data.musica || !data.musica.audioUrl) {
-      musicLoadFailed = true;
-      return;
-    }
-    weddingAudio.src = data.musica.audioUrl;
-    weddingAudio.preload = 'auto';
-    weddingAudio.load();
-    musicReady = true;
-    weddingAudio.addEventListener('canplay', function() {
-      if (invitationOpened && weddingAudio.paused) intentarReproducirMusica();
-    }, { once: true });
-    if (invitationOpened) intentarReproducirMusica();
-  };
-  script.onerror = function() { musicLoadFailed = true; limpiar(); };
-  script.src = GOOGLE_SCRIPT_URL + '?accion=musica&callback=' + callbackName + '&t=' + Date.now();
-  document.head.appendChild(script);
+  const url = 'https://juanosorio99.github.io/boda-juan-angel/cancion.mp3';
+  if (weddingAudio.src !== url) weddingAudio.src = url;
+  weddingAudio.preload = 'auto';
+  musicReady = true;
 }
+
+function intentarReproducirMusica() {
+  mostrarBotonMusica();
+  if (!musicReady) cargarMusicaBoda();
+
+  // play() se invoca directamente desde el clic del usuario para respetar
+  // las políticas de reproducción automática de los navegadores.
+  const promesa = weddingAudio.play();
+  if (promesa && typeof promesa.then === 'function') {
+    promesa.then(() => {
+      musicLoadFailed = false;
+      actualizarBotonMusica(true);
+    }).catch((err) => {
+      musicLoadFailed = true;
+      actualizarBotonMusica(false);
+      console.error('No se pudo reproducir la música de la boda:', err);
+    });
+  }
+}
+
 weddingAudio.addEventListener('play', () => actualizarBotonMusica(true));
 weddingAudio.addEventListener('pause', () => actualizarBotonMusica(false));
-weddingAudio.addEventListener('error', () => { musicLoadFailed = true; actualizarBotonMusica(false); });
-weddingMusicButton.addEventListener('click', async () => {
+weddingAudio.addEventListener('ended', () => actualizarBotonMusica(false));
+weddingAudio.addEventListener('error', () => {
+  musicLoadFailed = true;
+  actualizarBotonMusica(false);
+  console.error('Error cargando el MP3:', weddingAudio.error);
+});
+
+weddingMusicButton.addEventListener('click', () => {
   if (weddingAudio.paused) {
-    if (!musicReady) { cargarMusicaBoda(); mostrarBotonMusica(); return; }
-    await intentarReproducirMusica();
+    intentarReproducirMusica();
   } else {
     weddingAudio.pause();
   }
 });
+
 cargarMusicaBoda();
 
 cargarFotosHistoria();
@@ -500,7 +492,17 @@ useAllSeats.addEventListener('change',()=>{
   actualizarCamposAsistencia();
 });
 actualizarCamposAsistencia();
-function abrirInvitacion(){if(cover.classList.contains('opened'))return;invitationOpened=true;cover.classList.add('opened');main.classList.add('visible');mostrarBotonMusica();intentarReproducirMusica();setTimeout(()=>{document.getElementById('inviteCard').setAttribute('aria-hidden','true')},1100);}
+function abrirInvitacion() {
+  if (cover.classList.contains('opened')) return;
+  invitationOpened = true;
+  cover.classList.add('opened');
+  main.classList.add('visible');
+  // Intentar iniciar el audio en el mismo gesto que abre el sobre.
+  intentarReproducirMusica();
+  setTimeout(() => {
+    document.getElementById('inviteCard').setAttribute('aria-hidden', 'true');
+  }, 1100);
+}
 document.getElementById('openInvite').addEventListener('click',abrirInvitacion);
 document.getElementById('inviteCard').addEventListener('click',abrirInvitacion);
 document.getElementById('openInvite').setAttribute('aria-label','Abrir invitación tocando el sobre');
