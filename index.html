@@ -316,7 +316,9 @@ body{background:#f8efe3;color:var(--ink)}
 .story-section:before,.story-section:after{content:'❧';font-size:clamp(4rem,9vw,8rem);color:#d69b8c;opacity:.42}
 .story-heading{font-size:clamp(3.6rem,8vw,5.8rem)!important;color:#3f4938;margin:12px 0 8px!important}
 .story-intro{max-width:540px;margin:15px auto 38px;line-height:1.75}
-.story-copy h3{font-family:'Cormorant Garamond',serif;font-weight:500}
+.story-copy h3,.detail h3{font-family:'Great Vibes','Ballet','Cormorant Garamond',cursive!important;font-weight:400!important;letter-spacing:0!important;line-height:1.08!important}
+.story-copy h3{font-size:clamp(1.65rem,2.5vw,1.95rem)!important;margin:0 0 10px!important;color:#3f4938}
+.detail h3{font-size:2.15rem!important;margin:8px 0 10px!important;color:#3f4938}
 .photo{min-height:420px;height:58vh;max-height:650px;background-position:center 54%!important}
 .photo-caption h2{font-size:clamp(4rem,9vw,6.2rem)!important;margin:12px 0 0!important;color:#fffaf0}
 .photo-caption{padding-bottom:28px}
@@ -338,13 +340,15 @@ body{background:#f8efe3;color:var(--ink)}
  .reveal-names{font-size:clamp(3.1rem,12vw,4.8rem);white-space:normal;line-height:1.08}
  .intro h2{font-size:clamp(3.2rem,13vw,4.4rem)!important}
  .story-heading{font-size:clamp(3.2rem,13vw,4.4rem)!important}
+ .story-copy h3{font-size:clamp(1.55rem,6vw,1.8rem)!important}
+ .detail h3{font-size:2rem!important}
  .intro:before{left:-.32em}.intro:after{right:-.32em}
 }
 @media(prefers-reduced-motion:reduce){.site-nav{transition:none}}
 </style>
 
 <style id="remove-requested-decorations-and-menu">
-/* Solicitud: quitar los adornos tipográficos grandes de las esquinas y el menú superior. */
+/* Conserva la eliminación de los adornos de las esquinas y el menú oculto solicitado anteriormente. */
 .intro::before,
 .intro::after,
 .story-section::before,
@@ -356,10 +360,39 @@ body{background:#f8efe3;color:var(--ink)}
   display: none !important;
 }
 
-/* Ajuste puntual: caligrafía ornamental para «Juan & Ángel» en la portada abierta. */
-.reveal-names{font-family:'Ballet','Great Vibes',cursive!important;font-weight:400!important;letter-spacing:0!important;line-height:1.02!important;font-size:clamp(4.6rem,12.5vw,9.2rem)!important;white-space:nowrap!important;}
-.reveal-names i{font-family:'Ballet','Great Vibes',cursive!important;font-size:.82em!important;font-weight:400!important;color:#ead9a7!important;}
-@media(max-width:600px){.reveal-names{font-size:clamp(3.15rem,13vw,5.2rem)!important;white-space:normal!important;}}
+/* Título de portada: caligrafía ornamental más contenida, sin superponer nombres. */
+.reveal-title { padding-left: 24px; padding-right: 24px; }
+.reveal-names {
+  display: block;
+  width: 100%;
+  font-family: 'Ballet', 'Great Vibes', cursive !important;
+  font-size: clamp(3.7rem, 8.4vw, 7.4rem) !important;
+  font-weight: 400 !important;
+  letter-spacing: 0 !important;
+  line-height: 1.12 !important;
+  white-space: nowrap !important;
+  color: #fffaf0 !important;
+  text-shadow: 0 2px 22px #1b281b66;
+}
+.reveal-names i {
+  display: inline-block;
+  font-family: 'Great Vibes', 'Ballet', cursive !important;
+  font-size: .72em !important;
+  font-style: normal !important;
+  font-weight: 400 !important;
+  color: #ead9a7 !important;
+  margin: 0 .035em;
+  vertical-align: .02em;
+}
+@media (max-width: 600px) {
+  .reveal-title { padding-left: 12px; padding-right: 12px; }
+  .reveal-names {
+    font-size: clamp(2.65rem, 10.4vw, 4.1rem) !important;
+    white-space: nowrap !important;
+    line-height: 1.12 !important;
+  }
+  .reveal-names i { font-size: .68em !important; }
+}
 </style>
 </head>
 <body>
