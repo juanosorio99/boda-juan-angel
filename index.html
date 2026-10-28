@@ -317,6 +317,53 @@ section{padding:76px 22px;text-align:center}.intro{background:#e9e8dc}.section-i
 }
 </style>
 
+
+<style id="juan-final-correcciones-referencia">
+/* 1. La portada con el sobre conserva su diseño original: sin flores superpuestas. */
+#cover.hero::before,
+#cover.hero::after {
+  content: none !important;
+  display: none !important;
+  background-image: none !important;
+}
+
+/* 2. Great Vibes en todos los títulos, igual que la caligrafía del boceto.
+   No se agregan adornos florales adicionales a la portada fotográfica. */
+#cover .cover-names,
+#cover .reveal-names,
+#invitation .intro h2,
+#invitation .story-section h2,
+#invitation .photo-caption h2,
+#invitation .details h2,
+#invitation .rsvp h2,
+#invitation .intro .signature,
+#invitation .story-heading {
+  font-family: 'Great Vibes', cursive !important;
+  font-style: normal !important;
+  font-weight: 400 !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+}
+
+/* El título de la portada debe conservar el estilo manuscrito y el espacio de la referencia. */
+#cover .reveal-names {
+  line-height: 1.02 !important;
+  text-shadow: 0 2px 18px #17241b66;
+}
+#cover .reveal-names i {
+  font-family: 'Great Vibes', cursive !important;
+  font-style: normal !important;
+}
+
+/* La portada verde del sobre no cambia; las flores acuareladas quedan en las secciones interiores. */
+#cover .invite-card {
+  background: transparent;
+}
+@media (max-width: 600px) {
+  #cover .reveal-names { font-size: clamp(2.65rem, 11.8vw, 4.6rem) !important; }
+}
+</style>
+
 </head>
 <body>
 <header class="hero" id="cover"><div class="hero-image" id="weddingImage" role="img" aria-label="Fotografía de Juan y Ángel en una ceremonia de boda al aire libre"></div><div class="hero-shade" aria-hidden="true"></div><div class="invite-card" id="inviteCard">
