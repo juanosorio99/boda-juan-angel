@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#f5f0e7"><meta name="description" content="Invitación de boda de Juan y Ángel · 17 de abril de 2027 · La Casona, Guarne.">
 <title>Juan &amp; Ángel — Nuestra boda</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=DM+Sans:wght@300;400;500;600&family=Parisienne&family=Great+Vibes&display=swap" rel="stylesheet">
 <style>
 :root{--paper:#f8f4ec;--ink:#344338;--olive:#687a5a;--gold:#b99b65;--muted:#77786c;--line:#d9d1c2}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;font-weight:300}button,input,select,textarea{font:inherit}.serif{font-family:'Cormorant Garamond',serif}.eyebrow{font-size:.68rem;letter-spacing:.23em;text-transform:uppercase;color:var(--olive)}
@@ -294,10 +294,11 @@ section{padding:76px 22px;text-align:center}.intro{background:#e9e8dc}.section-i
 .photo-caption h2,
 .details h2,
 .rsvp h2 {
-  font-family: 'Cormorant Garamond', serif !important;
-  font-style: italic !important;
+  font-family: 'Parisienne', 'Cormorant Garamond', serif !important;
+  font-style: normal !important;
   font-weight: 400 !important;
-  letter-spacing: -0.025em;
+  letter-spacing: 0 !important;
+  line-height: 1.08 !important;
 }
 </style>
 </head>
@@ -577,4 +578,37 @@ rsvpForm.addEventListener('submit',async e=>{
  finally{button.disabled=false;button.textContent='Confirmar asistencia';}
 });
 function escapeHTML(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-</script></body></html>
+</script><style id="great-vibes-floral-update">
+/* Tipografía caligráfica antigua y flores acuareladas en rosa empolvado */
+.hero h1,
+.intro h2,
+.story-heading,
+.photo h2,
+.details h2,
+.rsvp h2 {
+  font-family: 'Great Vibes', 'Parisienne', cursive !important;
+  font-weight: 400 !important;
+  letter-spacing: 0 !important;
+  line-height: 1.12 !important;
+}
+.intro, .story-section, .photo, .details, .rsvp { position: relative; isolation: isolate; }
+.intro::before, .story-section::before, .story-section::after,
+.photo::before, .details::before, .rsvp::before, .rsvp::after {
+  content: ''; position: absolute; width: clamp(100px, 22vw, 205px); height: clamp(135px, 29vw, 275px);
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNjAgMzQwIj48ZyBmaWxsPSJub25lIiBzdHJva2U9IiM4YTkyNzAiIHN0cm9rZS13aWR0aD0iMyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIj48cGF0aCBkPSJNMTggMzIwIFE3MiAyNDUgOTUgMTc3IFQxNzggMTgiLz48cGF0aCBkPSJNNDUgMjgyIFE5OCAyNjcgMTMwIDIzMyIvPjxwYXRoIGQ9Ik03NSAyMzEgUTQ4IDE4OSAzMCAxNjQiLz48cGF0aCBkPSJNMTA3IDE5MyBRMTU1IDE5MyAxODggMTU3Ii8+PHBhdGggZD0iTTEzNiAxMjcgUTEwMCAxMDkgODMgODAiLz48cGF0aCBkPSJNMTU3IDc4IFExOTMgODEgMjE4IDUyIi8+PC9nPjxnIGZpbGw9IiNhN2FkOGIiIG9wYWNpdHk9Ii45Ij48ZWxsaXBzZSBjeD0iNTUiIGN5PSIyNTciIHJ4PSIxMyIgcnk9IjMyIiB0cmFuc2Zvcm09InJvdGF0ZSgtNDcgNTUgMjU3KSIvPjxlbGxpcHNlIGN4PSIxMDUiIGN5PSIyNTIiIHJ4PSIxMyIgcnk9IjMwIiB0cmFuc2Zvcm09InJvdGF0ZSg0OCAxMDUgMjUyKSIvPjxlbGxpcHNlIGN4PSIzOCIgY3k9IjE4NCIgcng9IjEyIiByeT0iMjkiIHRyYW5zZm9ybT0icm90YXRlKC0zOCAzOCAxODQpIi8+PGVsbGlwc2UgY3g9Ijg0IiBjeT0iMjA3IiByeD0iMTIiIHJ5PSIyNyIgdHJhbnNmb3JtPSJyb3RhdGUoNDUgODQgMjA3KSIvPjxlbGxpcHNlIGN4PSIxMTEiIGN5PSIxNTciIHJ4PSIxMiIgcnk9IjI5IiB0cmFuc2Zvcm09InJvdGF0ZSgtNDggMTExIDE1NykiLz48ZWxsaXBzZSBjeD0iMTU3IiBjeT0iMTc4IiByeD0iMTIiIHJ5PSIyOCIgdHJhbnNmb3JtPSJyb3RhdGUoNTAgMTU3IDE3OCkiLz48ZWxsaXBzZSBjeD0iMTY0IiBjeT0iOTEiIHJ4PSIxMSIgcnk9IjI3IiB0cmFuc2Zvcm09InJvdGF0ZSgtNDIgMTY0IDkxKSIvPjxlbGxpcHNlIGN4PSIyMDEiIGN5PSI3MCIgcng9IjEwIiByeT0iMjUiIHRyYW5zZm9ybT0icm90YXRlKDUwIDIwMSA3MCkiLz48L2c+PGcgZmlsbD0iI2U3YjdhNiIgc3Ryb2tlPSIjZDQ5YjhhIiBzdHJva2Utd2lkdGg9IjEuMiI+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjkgMTUwKSI+PGVsbGlwc2UgY3k9Ii0xNyIgcng9IjExIiByeT0iMjAiLz48ZWxsaXBzZSBjeD0iMTYiIGN5PSItNSIgcng9IjExIiByeT0iMjAiIHRyYW5zZm9ybT0icm90YXRlKDY1IDE2IC01KSIvPjxlbGxpcHNlIGN4PSIxMCIgY3k9IjE0IiByeD0iMTEiIHJ5PSIyMCIgdHJhbnNmb3JtPSJyb3RhdGUoMTM1IDEwIDE0KSIvPjxlbGxpcHNlIGN4PSItMTAiIGN5PSIxNCIgcng9IjExIiByeT0iMjAiIHRyYW5zZm9ybT0icm90YXRlKDIxNSAtMTAgMTQpIi8+PGVsbGlwc2UgY3g9Ii0xNiIgY3k9Ii01IiByeD0iMTEiIHJ5PSIyMCIgdHJhbnNmb3JtPSJyb3RhdGUoMjkwIC0xNiAtNSkiLz48Y2lyY2xlIHI9IjYiIGZpbGw9IiNiOTliNjUiIHN0cm9rZT0ibm9uZSIvPjwvZz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxODUgMTQ1KSBzY2FsZSguODIpIj48ZWxsaXBzZSBjeT0iLTE3IiByeD0iMTEiIHJ5PSIyMCIvPjxlbGxpcHNlIGN4PSIxNiIgY3k9Ii01IiByeD0iMTEiIHJ5PSIyMCIgdHJhbnNmb3JtPSJyb3RhdGUoNjUgMTYgLTUpIi8+PGVsbGlwc2UgY3g9IjEwIiBjeT0iMTQiIHJ4PSIxMSIgcnk9IjIwIiB0cmFuc2Zvcm09InJvdGF0ZSgxMzUgMTAgMTQpIi8+PGVsbGlwc2UgY3g9Ii0xMCIgY3k9IjE0IiByeD0iMTEiIHJ5PSIyMCIgdHJhbnNmb3JtPSJyb3RhdGUoMjE1IC0xMCAxNCkiLz48ZWxsaXBzZSBjeD0iLTE2IiBjeT0iLTUiIHJ4PSIxMSIgcnk9IjIwIiB0cmFuc2Zvcm09InJvdGF0ZSgyOTAgLTE2IC01KSIvPjxjaXJjbGUgcj0iNiIgZmlsbD0iI2I5OWI2NSIgc3Ryb2tlPSJub25lIi8+PC9nPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDgwIDcwKSBzY2FsZSguNikiPjxlbGxpcHNlIGN5PSItMTciIHJ4PSIxMSIgcnk9IjIwIi8+PGVsbGlwc2UgY3g9IjE2IiBjeT0iLTUiIHJ4PSIxMSIgcnk9IjIwIiB0cmFuc2Zvcm09InJvdGF0ZSg2NSAxNiAtNSkiLz48ZWxsaXBzZSBjeD0iMTAiIGN5PSIxNCIgcng9IjExIiByeT0iMjAiIHRyYW5zZm9ybT0icm90YXRlKDEzNSAxMCAxNCkiLz48ZWxsaXBzZSBjeD0iLTEwIiBjeT0iMTQiIHJ4PSIxMSIgcnk9IjIwIiB0cmFuc2Zvcm09InJvdGF0ZSgyMTUgLTEwIDE0KSIvPjxlbGxpcHNlIGN4PSItMTYiIGN5PSItNSIgcng9IjExIiByeT0iMjAiIHRyYW5zZm9ybT0icm90YXRlKDI5MCAtMTYgLTUpIi8+PGNpcmNsZSByPSI2IiBmaWxsPSIjYjk5YjY1IiBzdHJva2U9Im5vbmUiLz48L2c+PC9nPjwvc3ZnPg==); background-repeat: no-repeat; background-size: contain;
+  opacity: .66; pointer-events: none; z-index: -1;
+}
+.intro::before { top: -12px; left: -22px; transform: rotate(-12deg); }
+.story-section::before { top: -12px; left: -24px; transform: rotate(-10deg); }
+.story-section::after { bottom: -18px; right: -20px; transform: rotate(168deg); }
+.photo::before { top: -18px; left: -25px; transform: rotate(-15deg); opacity: .48; }
+.details::before { top: -12px; right: -22px; transform: rotate(180deg); }
+.rsvp::before { top: -18px; left: -24px; transform: rotate(-8deg); }
+.rsvp::after { bottom: -24px; right: -24px; transform: rotate(175deg); }
+.intro .section-inner, .story-inner { position: relative; z-index: 1; }
+@media(max-width:600px) {
+  .intro::before, .story-section::before, .story-section::after, .photo::before, .details::before, .rsvp::before, .rsvp::after { opacity: .42; width: 112px; height: 150px; }
+  .intro h2, .story-heading, .photo h2, .details h2, .rsvp h2 { font-size: clamp(2.7rem, 12vw, 4rem) !important; }
+}
+</style>
+</body></html>
