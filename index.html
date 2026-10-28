@@ -362,6 +362,34 @@ section{padding:76px 22px;text-align:center}.intro{background:#e9e8dc}.section-i
 @media (max-width: 600px) {
   #cover .reveal-names { font-size: clamp(2.65rem, 11.8vw, 4.6rem) !important; }
 }
+
+/* Corrección: restaurar los elementos visibles de la portada del sobre. */
+#cover .invite-card > .envelope-art { display:block !important; }
+#cover .invite-card > .exclusive-note { display:block !important; }
+#cover .invite-card > .cover-names,
+#cover .invite-card > .cover-date,
+#cover .invite-card > .hint { display:block !important; }
+#cover .invite-card { background-image:none !important; background-color:#dce4bd !important; }
+#cover .envelope-art { z-index:0 !important; }
+#cover .exclusive-note,
+#cover .cover-names,
+#cover .cover-date,
+#cover .hint { position:relative; z-index:9; }
+#cover .cover-names,
+#cover .reveal-names,
+#invitation .intro h2,
+#invitation .story-heading,
+#invitation .photo-caption h2,
+#invitation .details h2,
+#invitation .rsvp h2,
+#invitation .footer .names {
+  font-family:'Great Vibes', cursive !important;
+  font-style:normal !important;
+  font-weight:400 !important;
+  letter-spacing:0 !important;
+}
+#cover .reveal-names { white-space:nowrap; font-size:clamp(3.4rem,12vw,7rem) !important; line-height:1.05 !important; }
+#cover .reveal-names i { font-family:'Great Vibes',cursive !important; font-style:normal !important; color:#f0d9a7 !important; }
 </style>
 
 </head>
