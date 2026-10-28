@@ -332,8 +332,8 @@ body{background:#f8efe3;color:var(--ink)}
 .guest-picker select{background:#fffaf3;border-color:#d9b9a9}
 .btn{background:#d39485;border-color:#d39485;color:white}
 .btn:hover{background:#b97c6f;border-color:#b97c6f}
-.footer{background:#f8efe3;color:#737568;border-top:1px solid #ead9c9}
-.footer .names{font-family:'Great Vibes','Cormorant Garamond',cursive;font-size:2.8rem;color:#3f4938}
+.footer{background:#3f4938;color:#f8efe3;border-top:1px solid #3f4938}
+.footer .names{font-family:'Great Vibes','Cormorant Garamond',cursive;font-size:2.8rem;color:#f8efe3}
 # w{display:none}
 @media(max-width:560px){
  .site-nav{gap:10px;padding:13px 6px}.site-nav a{font-size:.43rem;letter-spacing:.08em}
@@ -394,6 +394,27 @@ body{background:#f8efe3;color:var(--ink)}
   .reveal-names i { font-size: .68em !important; }
 }
 </style>
+<style id="footer-signature-matching-cover">
+/* Firma del pie de página: misma caligrafía ornamental de Juan y Ángel de la portada. */
+.footer .names {
+  font-family: 'Ballet', 'Great Vibes', cursive !important;
+  font-size: clamp(1.4rem, 2.7vw, 2rem) !important;
+  font-weight: 400 !important;
+  line-height: 1.15 !important;
+  letter-spacing: 0 !important;
+  color: #f8efe3 !important;
+  margin: 0 auto 5px !important;
+}
+.footer .names span {
+  font-family: 'Great Vibes', 'Ballet', cursive !important;
+  color: #f8efe3 !important;
+  font-weight: 400 !important;
+}
+.footer p { margin-top: 4px !important; }
+@media (max-width: 560px) {
+  .footer .names { font-size: 1.55rem !important; }
+}
+</style>
 </head>
 <body>
 <header class="hero" id="cover"><nav class="site-nav" aria-label="Navegación principal"><a href="#cover" class="active">Inicio</a><a href="#nuestra-historia">Nuestra historia</a><a href="#detalles">Detalles</a><a href="#rsvp">Confirma tu asistencia</a></nav><div class="hero-image" id="weddingImage" role="img" aria-label="Fotografía de Juan y Ángel en una ceremonia de boda al aire libre"></div><div class="hero-shade" aria-hidden="true"></div><div class="invite-card" id="inviteCard">
@@ -431,7 +452,7 @@ body{background:#f8efe3;color:var(--ink)}
 </div></section>
 <section class="details" id="detalles"><div class="section-inner"><div class="eyebrow">Guarda la fecha</div><h2 class="serif">Nos vemos pronto</h2><p style="font-size:.86rem;color:var(--muted);line-height:1.8">Queremos compartir contigo un día lleno de amor, alegría y nuevos comienzos.</p><div class="detail-grid"><article class="detail"><div class="symbol">✧</div><h3>La fecha</h3><p>Sábado<br>17 de abril de 2027</p></article><article class="detail"><div class="symbol">⌖</div><h3>El lugar</h3><p>La Casona<br>Guarne, Antioquia</p></article><article class="detail"><div class="symbol">♡</div><h3>Vestuario</h3><p>Formal<br>Elegancia para celebrar juntos</p></article><article class="detail"><div class="symbol">◷</div><h3>La hora</h3><p>3:00 p. m.<br>¡Te esperamos!</p></article><article class="detail gift-detail"><div class="symbol">✉</div><h3>Regalos</h3><p>Tu presencia es nuestro mejor regalo.<br>Si deseas obsequiarnos algo, recibiremos con cariño una lluvia de sobres.<br><br>También puedes transferir a la llave:<br><strong>@angelida</strong></p></article></div><a class="map-link" href="https://www.google.com/maps/place/LA+CASONA+niebla+%26+brasa+restaurante/@6.307173,-75.47496,16z/data=!4m14!1m7!3m6!1s0x8e4425000c202c6b:0x873f07b5456aec17!2sLA+CASONA+niebla+%26+brasa+restaurante!8m2!3d6.3121567!4d-75.4739526!16s%2Fg%2F11n4n1vp5x!3m5!1s0x8e4425000c202c6b:0x873f07b5456aec17!8m2!3d6.3121567!4d-75.4739526!16s%2Fg%2F11n4n1vp5x?entry=ttu&g_ep=EgoyMDI2MTAxOS4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener">Ver ubicación en Google Maps ↗</a></div></section>
 <section class="rsvp" id="rsvp"><div class="section-inner"><div class="eyebrow">Tu presencia es importante</div><h2 class="serif">¿Nos acompañas?</h2><p>Busca tu nombre en la lista para abrir tu invitación personal. El número de cupos está definido por los novios.</p><div class="guest-picker"><label for="inviteSelect">Encuentra tu invitación</label><select id="inviteSelect" required><option value="" selected disabled>Selecciona tu nombre o familia</option></select><div class="guest-capacity" id="guestCapacity" aria-live="polite">Al seleccionar tu invitación aparecerán los cupos asignados.</div><div class="guest-chip" id="inviteBadge" hidden>INVITACIÓN PERSONAL</div><p class="guest-help" id="guestHelp">La lista y los cupos se actualizarán cuando preparen la lista definitiva.</p></div><form class="form rsvp-locked" id="rsvpForm"><div class="field"><label for="guestName">Invitación seleccionada</label><input id="guestName" name="guestName" placeholder="Selecciona tu invitación arriba" readonly required></div><div class="field"><label for="attendance">¿Podrás acompañarnos?</label><select id="attendance" name="attendance" required><option value="" disabled selected>Selecciona una opción</option><option value="Sí, allí estaré">¡Sí, allí estaré!</option><option value="No podré asistir">Lo siento, no podré asistir</option></select></div><div class="field" id="useAllSeatsField"><label for="useAllSeats">¿Utilizarás todos los cupos?</label><select id="useAllSeats" name="useAllSeats" required><option value="" disabled selected>Selecciona una opción</option><option value="Sí">Sí, utilizaré todos los cupos</option><option value="No">No, utilizaré menos cupos</option></select></div><div class="field" id="usedSeatsField" hidden><label for="usedSeats">Si la respuesta es no, indícanos cuántos cupos utilizarás</label><select id="usedSeats" name="usedSeats"><option value="" selected disabled>Selecciona la cantidad de cupos</option></select></div><div class="field" id="guestsField"><label for="guests">Cupos asignados a tu invitación</label><input id="guests" name="guests" value="—" readonly><p class="guest-help">La cantidad máxima está definida por los novios.</p></div><div class="field" id="dietaryField"><label for="dietary">Si tienes alguna alergia o restricción alimentaria, por favor indícanosla aquí:</label><textarea id="dietary" name="dietary" placeholder="Ej.: alergia a los frutos secos, vegetariano, sin gluten..."></textarea></div><div class="field"><label for="message">Mensaje para los novios (opcional)</label><textarea id="message" name="message" placeholder="Déjanos unas palabras..."></textarea></div><button class="btn" type="submit">Confirmar asistencia</button><p class="form-note" id="formNote">Al enviar, la respuesta se registrará en el sistema de confirmaciones cuando la conexión esté configurada.</p></form><div class="thanks" id="thanks" role="status"></div></div></section>
-<footer class="footer"><div class="names serif">Juan <span style="color:#c5ac7a">&</span> Ángel</div><p>17 · ABRIL · 2027</p><div style="font-size:.7rem;color:#c8c7b8;margin-top:18px">Con amor, para celebrar nuestro nuevo comienzo.</div></footer>
+<footer class="footer"><div class="names serif">Juan <span style="color:#c5ac7a">&</span> Ángel</div><p>17 · ABRIL · 2027</p><div style="font-size:.7rem;color:#f8efe3;margin-top:18px">Con amor, para celebrar nuestro nuevo comienzo.</div></footer>
 </main>
 <script>
 // La lista de invitados se carga desde la pestaña "Invitados" de Google Sheets mediante Apps Script.
