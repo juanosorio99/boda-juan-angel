@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#f5f0e7"><meta name="description" content="Invitación de boda de Juan y Ángel · 17 de abril de 2027 · La Casona, Guarne.">
 <title>Juan &amp; Ángel — Nuestra boda</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
 <style>
 :root{--paper:#f8f4ec;--ink:#344338;--olive:#687a5a;--gold:#b99b65;--muted:#77786c;--line:#d9d1c2}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;font-weight:300}button,input,select,textarea{font:inherit}.serif{font-family:'Cormorant Garamond',serif}.eyebrow{font-size:.68rem;letter-spacing:.23em;text-transform:uppercase;color:var(--olive)}
@@ -286,9 +286,65 @@ section{padding:76px 22px;text-align:center}.intro{background:#e9e8dc}.section-i
 .footer .names span{color:var(--rose)!important;}
 @media(prefers-reduced-motion:reduce){#weddingMusic.playing{animation:none!important;}}
 </style>
+
+<style id="wedding-reference-design-final">
+/* Diseño editorial basado en la referencia aprobada */
+:root{--paper:#f8efe3;--ink:#3f4938;--olive:#59664b;--gold:#b79a67;--muted:#737568;--line:#d9cbbb}
+body{background:#f8efe3;color:var(--ink)}
+.site-nav{position:absolute;z-index:20;top:0;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:clamp(14px,3vw,34px);padding:19px 14px;background:linear-gradient(180deg,#f8efe3e8,#f8efe388);opacity:0;transform:translateY(-8px);transition:opacity .8s .5s,transform .8s .5s}
+.hero.opened .site-nav{opacity:1;transform:none}
+.site-nav a{font-family:'DM Sans',sans-serif;color:#3f4938;text-decoration:none;font-size:clamp(.48rem,.72vw,.65rem);letter-spacing:.17em;text-transform:uppercase;white-space:nowrap;padding-bottom:6px;border-bottom:1px solid transparent}
+.site-nav a:hover,.site-nav a.active{border-color:#59664b}
+.hero.opened{min-height:100svh;background:#68745a}
+.hero.opened .reveal-title{padding-top:58px}
+.reveal-eyebrow{font-family:'DM Sans',sans-serif;letter-spacing:.35em;font-size:.68rem;margin-bottom:18px}
+.reveal-names{font-family:'Great Vibes','Cormorant Garamond',cursive;font-size:clamp(4.2rem,10.5vw,8.2rem);font-weight:400;line-height:1.03;letter-spacing:0;white-space:nowrap;color:#fffaf0;text-shadow:0 2px 22px #1b281b66}
+.reveal-names i{font-family:'Great Vibes',cursive;font-size:.82em;font-weight:400;color:#ead9a7}
+.reveal-date{font-family:'DM Sans',sans-serif;font-size:.72rem;letter-spacing:.26em;margin-top:8px}
+.reveal-place{font-family:'Cormorant Garamond',serif;font-size:1.12rem;margin-top:8px}
+.reveal-continue{margin-top:28px;padding:13px 19px;border-color:#fff2d9;background:#fff9ed14;font-family:'DM Sans',sans-serif}
+/* La sección introductoria recupera el marfil de la referencia; los títulos sí usan caligrafía. */
+.intro{position:relative;overflow:hidden;background:linear-gradient(110deg,#f8efe3,#fff9f0 52%,#f5e8d9);color:#414a39}
+.intro:before,.intro:after{content:'❧';position:absolute;color:#d8a092;opacity:.52;font-size:clamp(5rem,12vw,10rem);line-height:1;pointer-events:none}
+.intro:before{left:-.16em;top:8%;transform:rotate(-28deg)}.intro:after{right:-.16em;bottom:3%;transform:rotate(150deg)}
+.intro .section-inner{position:relative;z-index:1;max-width:800px}
+.intro h2,.story-heading,.photo-caption h2,.details h2,.rsvp h2{font-family:'Great Vibes','Cormorant Garamond',cursive!important;font-weight:400!important;letter-spacing:0!important;line-height:1.05!important}
+.intro h2{font-size:clamp(3.7rem,8vw,6.1rem)!important;margin:12px 0 4px!important;color:#3f4938}
+.intro p{max-width:560px;line-height:1.8;color:#65695b}
+.intro .rule{background:#cf9384;margin:18px auto}
+.story-section{background:linear-gradient(110deg,#f8eee2,#fff9f1 50%,#f8eee2);padding:65px 22px 72px}
+.story-section:before,.story-section:after{content:'❧';font-size:clamp(4rem,9vw,8rem);color:#d69b8c;opacity:.42}
+.story-heading{font-size:clamp(3.6rem,8vw,5.8rem)!important;color:#3f4938;margin:12px 0 8px!important}
+.story-intro{max-width:540px;margin:15px auto 38px;line-height:1.75}
+.story-copy h3{font-family:'Cormorant Garamond',serif;font-weight:500}
+.photo{min-height:420px;height:58vh;max-height:650px;background-position:center 54%!important}
+.photo-caption h2{font-size:clamp(4rem,9vw,6.2rem)!important;margin:12px 0 0!important;color:#fffaf0}
+.photo-caption{padding-bottom:28px}
+.details{background:#f7eee2;color:#414a39}
+.details h2,.rsvp h2{font-size:clamp(3.7rem,8vw,5.5rem)!important;color:#3f4938}
+.detail{background:#fff9f0b8;border-color:#dfd0bd}
+.rsvp{position:relative;overflow:hidden;background:linear-gradient(110deg,#f8efe3,#fff9f1 50%,#f7e9dc)}
+.rsvp .section-inner{position:relative;z-index:1}
+.guest-picker{background:#fff9f0c9;border-color:#dfc8b8}
+.guest-picker label{letter-spacing:.16em}
+.guest-picker select{background:#fffaf3;border-color:#d9b9a9}
+.btn{background:#d39485;border-color:#d39485;color:white}
+.btn:hover{background:#b97c6f;border-color:#b97c6f}
+.footer{background:#f8efe3;color:#737568;border-top:1px solid #ead9c9}
+.footer .names{font-family:'Great Vibes','Cormorant Garamond',cursive;font-size:2.8rem;color:#3f4938}
+# w{display:none}
+@media(max-width:560px){
+ .site-nav{gap:10px;padding:13px 6px}.site-nav a{font-size:.43rem;letter-spacing:.08em}
+ .reveal-names{font-size:clamp(3.1rem,12vw,4.8rem);white-space:normal;line-height:1.08}
+ .intro h2{font-size:clamp(3.2rem,13vw,4.4rem)!important}
+ .story-heading{font-size:clamp(3.2rem,13vw,4.4rem)!important}
+ .intro:before{left:-.32em}.intro:after{right:-.32em}
+}
+@media(prefers-reduced-motion:reduce){.site-nav{transition:none}}
+</style>
 </head>
 <body>
-<header class="hero" id="cover"><div class="hero-image" id="weddingImage" role="img" aria-label="Fotografía de Juan y Ángel en una ceremonia de boda al aire libre"></div><div class="hero-shade" aria-hidden="true"></div><div class="invite-card" id="inviteCard">
+<header class="hero" id="cover"><nav class="site-nav" aria-label="Navegación principal"><a href="#cover" class="active">Inicio</a><a href="#nuestra-historia">Nuestra historia</a><a href="#detalles">Detalles</a><a href="#rsvp">Confirma tu asistencia</a></nav><div class="hero-image" id="weddingImage" role="img" aria-label="Fotografía de Juan y Ángel en una ceremonia de boda al aire libre"></div><div class="hero-shade" aria-hidden="true"></div><div class="invite-card" id="inviteCard">
   <div class="envelope-art" aria-hidden="true">
     <svg class="botanical-emboss" viewBox="0 0 360 620" preserveAspectRatio="none" aria-hidden="true">
       <g class="emboss-line">
@@ -311,7 +367,7 @@ section{padding:76px 22px;text-align:center}.intro{background:#e9e8dc}.section-i
   <button class="open-btn" id="openInvite"><span class="seal-icon">✧</span> Toca el sello para abrir</button>
   <div class="hint">Una invitación hecha con amor</div>
 </div>
-<div class="reveal-title" id="revealTitle"><div class="reveal-eyebrow">NOS CASAMOS</div><div class="reveal-names">Juan <i>&amp;</i><br>Ángel</div><div class="reveal-date">17 · ABRIL · 2027</div><div class="reveal-place">La Casona · Guarne, Antioquia</div><button class="reveal-continue" id="revealContinue">Descubrir la invitación ↓</button></div>
+<div class="reveal-title" id="revealTitle"><div class="reveal-eyebrow">NOS CASAMOS</div><div class="reveal-names">Juan <i>&amp;</i> Ángel</div><div class="reveal-date">17 · ABRIL · 2027</div><div class="reveal-place">La Casona · Guarne, Antioquia</div><button class="reveal-continue" id="revealContinue">Descubrir la invitación ↓</button></div>
 <div class="scroll-cue">Toca para descubrir ↓</div></header>
 <audio id="weddingAudio" preload="auto" loop playsinline></audio>
  <button id="weddingMusic" type="button" aria-label="Reproducir música" title="Reproducir música" aria-pressed="false" hidden>♫</button>
@@ -321,7 +377,7 @@ section{padding:76px 22px;text-align:center}.intro{background:#e9e8dc}.section-i
 <section class="photo" aria-label="Fotografía romántica de boda"><div class="photo-caption"><div class="eyebrow">Un día para recordar</div><h2 class="serif">Nuestra boda</h2><div>17 de abril de 2027</div>
 <div class="wedding-countdown" aria-label="Cuenta regresiva para la boda"><div class="countdown-label">Faltan para nuestro gran día</div><div class="countdown-grid"><div class="countdown-unit"><span id="countdown-days">00</span><small>Días</small></div><i></i><div class="countdown-unit"><span id="countdown-hours">00</span><small>Horas</small></div><i></i><div class="countdown-unit"><span id="countdown-minutes">00</span><small>Minutos</small></div><i></i><div class="countdown-unit"><span id="countdown-seconds">00</span><small>Segundos</small></div></div></div>
 </div></section>
-<section class="details"><div class="section-inner"><div class="eyebrow">Guarda la fecha</div><h2 class="serif">Nos vemos pronto</h2><p style="font-size:.86rem;color:var(--muted);line-height:1.8">Queremos compartir contigo un día lleno de amor, alegría y nuevos comienzos.</p><div class="detail-grid"><article class="detail"><div class="symbol">✧</div><h3>La fecha</h3><p>Sábado<br>17 de abril de 2027</p></article><article class="detail"><div class="symbol">⌖</div><h3>El lugar</h3><p>La Casona<br>Guarne, Antioquia</p></article><article class="detail"><div class="symbol">♡</div><h3>Vestuario</h3><p>Formal<br>Elegancia para celebrar juntos</p></article><article class="detail"><div class="symbol">◷</div><h3>La hora</h3><p>3:00 p. m.<br>¡Te esperamos!</p></article><article class="detail gift-detail"><div class="symbol">✉</div><h3>Regalos</h3><p>Tu presencia es nuestro mejor regalo.<br>Si deseas obsequiarnos algo, recibiremos con cariño una lluvia de sobres.<br><br>También puedes transferir a la llave:<br><strong>@angelida</strong></p></article></div><a class="map-link" href="https://www.google.com/maps/place/LA+CASONA+niebla+%26+brasa+restaurante/@6.307173,-75.47496,16z/data=!4m14!1m7!3m6!1s0x8e4425000c202c6b:0x873f07b5456aec17!2sLA+CASONA+niebla+%26+brasa+restaurante!8m2!3d6.3121567!4d-75.4739526!16s%2Fg%2F11n4n1vp5x!3m5!1s0x8e4425000c202c6b:0x873f07b5456aec17!8m2!3d6.3121567!4d-75.4739526!16s%2Fg%2F11n4n1vp5x?entry=ttu&g_ep=EgoyMDI2MTAxOS4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener">Ver ubicación en Google Maps ↗</a></div></section>
+<section class="details" id="detalles"><div class="section-inner"><div class="eyebrow">Guarda la fecha</div><h2 class="serif">Nos vemos pronto</h2><p style="font-size:.86rem;color:var(--muted);line-height:1.8">Queremos compartir contigo un día lleno de amor, alegría y nuevos comienzos.</p><div class="detail-grid"><article class="detail"><div class="symbol">✧</div><h3>La fecha</h3><p>Sábado<br>17 de abril de 2027</p></article><article class="detail"><div class="symbol">⌖</div><h3>El lugar</h3><p>La Casona<br>Guarne, Antioquia</p></article><article class="detail"><div class="symbol">♡</div><h3>Vestuario</h3><p>Formal<br>Elegancia para celebrar juntos</p></article><article class="detail"><div class="symbol">◷</div><h3>La hora</h3><p>3:00 p. m.<br>¡Te esperamos!</p></article><article class="detail gift-detail"><div class="symbol">✉</div><h3>Regalos</h3><p>Tu presencia es nuestro mejor regalo.<br>Si deseas obsequiarnos algo, recibiremos con cariño una lluvia de sobres.<br><br>También puedes transferir a la llave:<br><strong>@angelida</strong></p></article></div><a class="map-link" href="https://www.google.com/maps/place/LA+CASONA+niebla+%26+brasa+restaurante/@6.307173,-75.47496,16z/data=!4m14!1m7!3m6!1s0x8e4425000c202c6b:0x873f07b5456aec17!2sLA+CASONA+niebla+%26+brasa+restaurante!8m2!3d6.3121567!4d-75.4739526!16s%2Fg%2F11n4n1vp5x!3m5!1s0x8e4425000c202c6b:0x873f07b5456aec17!8m2!3d6.3121567!4d-75.4739526!16s%2Fg%2F11n4n1vp5x?entry=ttu&g_ep=EgoyMDI2MTAxOS4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener">Ver ubicación en Google Maps ↗</a></div></section>
 <section class="rsvp" id="rsvp"><div class="section-inner"><div class="eyebrow">Tu presencia es importante</div><h2 class="serif">¿Nos acompañas?</h2><p>Busca tu nombre en la lista para abrir tu invitación personal. El número de cupos está definido por los novios.</p><div class="guest-picker"><label for="inviteSelect">Encuentra tu invitación</label><select id="inviteSelect" required><option value="" selected disabled>Selecciona tu nombre o familia</option></select><div class="guest-capacity" id="guestCapacity" aria-live="polite">Al seleccionar tu invitación aparecerán los cupos asignados.</div><div class="guest-chip" id="inviteBadge" hidden>INVITACIÓN PERSONAL</div><p class="guest-help" id="guestHelp">La lista y los cupos se actualizarán cuando preparen la lista definitiva.</p></div><form class="form rsvp-locked" id="rsvpForm"><div class="field"><label for="guestName">Invitación seleccionada</label><input id="guestName" name="guestName" placeholder="Selecciona tu invitación arriba" readonly required></div><div class="field"><label for="attendance">¿Podrás acompañarnos?</label><select id="attendance" name="attendance" required><option value="" disabled selected>Selecciona una opción</option><option value="Sí, allí estaré">¡Sí, allí estaré!</option><option value="No podré asistir">Lo siento, no podré asistir</option></select></div><div class="field" id="useAllSeatsField"><label for="useAllSeats">¿Utilizarás todos los cupos?</label><select id="useAllSeats" name="useAllSeats" required><option value="" disabled selected>Selecciona una opción</option><option value="Sí">Sí, utilizaré todos los cupos</option><option value="No">No, utilizaré menos cupos</option></select></div><div class="field" id="usedSeatsField" hidden><label for="usedSeats">Si la respuesta es no, indícanos cuántos cupos utilizarás</label><select id="usedSeats" name="usedSeats"><option value="" selected disabled>Selecciona la cantidad de cupos</option></select></div><div class="field" id="guestsField"><label for="guests">Cupos asignados a tu invitación</label><input id="guests" name="guests" value="—" readonly><p class="guest-help">La cantidad máxima está definida por los novios.</p></div><div class="field" id="dietaryField"><label for="dietary">Si tienes alguna alergia o restricción alimentaria, por favor indícanosla aquí:</label><textarea id="dietary" name="dietary" placeholder="Ej.: alergia a los frutos secos, vegetariano, sin gluten..."></textarea></div><div class="field"><label for="message">Mensaje para los novios (opcional)</label><textarea id="message" name="message" placeholder="Déjanos unas palabras..."></textarea></div><button class="btn" type="submit">Confirmar asistencia</button><p class="form-note" id="formNote">Al enviar, la respuesta se registrará en el sistema de confirmaciones cuando la conexión esté configurada.</p></form><div class="thanks" id="thanks" role="status"></div></div></section>
 <footer class="footer"><div class="names serif">Juan <span style="color:#c5ac7a">&</span> Ángel</div><p>17 · ABRIL · 2027</p><div style="font-size:.7rem;color:#c8c7b8;margin-top:18px">Con amor, para celebrar nuestro nuevo comienzo.</div></footer>
 </main>
