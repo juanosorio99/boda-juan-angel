@@ -342,6 +342,20 @@ body{background:#f8efe3;color:var(--ink)}
 }
 @media(prefers-reduced-motion:reduce){.site-nav{transition:none}}
 </style>
+
+<style id="remove-requested-decorations-and-menu">
+/* Solicitud: quitar los adornos tipográficos grandes de las esquinas y el menú superior. */
+.intro::before,
+.intro::after,
+.story-section::before,
+.story-section::after {
+  content: none !important;
+  display: none !important;
+}
+.site-nav {
+  display: none !important;
+}
+</style>
 </head>
 <body>
 <header class="hero" id="cover"><nav class="site-nav" aria-label="Navegación principal"><a href="#cover" class="active">Inicio</a><a href="#nuestra-historia">Nuestra historia</a><a href="#detalles">Detalles</a><a href="#rsvp">Confirma tu asistencia</a></nav><div class="hero-image" id="weddingImage" role="img" aria-label="Fotografía de Juan y Ángel en una ceremonia de boda al aire libre"></div><div class="hero-shade" aria-hidden="true"></div><div class="invite-card" id="inviteCard">
